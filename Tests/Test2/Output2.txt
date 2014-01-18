@@ -1,0 +1,11 @@
+
+#New Object Created : Test1
+ERR
+#INVALID ARGUMENTS
+#New Object Created : Test3
+ERR
+#UNKNOWN COMMAND
+#New Object Created : Test4
+Test1 1 1 2 3
+Test3 12 13 14 15
+Test4 89 90 91 92

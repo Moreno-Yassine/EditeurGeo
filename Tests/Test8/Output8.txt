@@ -1,0 +1,10 @@
+#New Object Created : Test1
+#New Object Created : Test2
+#New Object Created : Test3
+#New Object Created : Test4
+ERR
+#NAME ALREADY EXISTS
+Test1 1 1 2 3
+Test2 9 8 7 3
+Test3 12 13 14 15
+Test4 89 90 91 92

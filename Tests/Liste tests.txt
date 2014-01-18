@@ -1,0 +1,5 @@
+1-2 et 8: Tests simples
+3-7: Tests sur "MOVE" (simples)
+9-12: Tests sur "UNDO" (simples)
+13-17: Tests sur "DELETE" (simples)
+18-21: Tests sur "REDO" (simples)
