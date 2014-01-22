@@ -13,15 +13,15 @@
 #include "CliParser.h"
 #include "Commande.h"
 #include "FPolyLigne.h"
-//------------------------------------------------------------- Constantes 
+//------------------------------------------------------------- Constantes
 
-//------------------------------------------------------------------ Types 
+//------------------------------------------------------------------ Types
 
-//------------------------------------------------------------------------ 
+//------------------------------------------------------------------------
 // Rôle de la classe <CAjouterPolyligne>
 //
 //
-//------------------------------------------------------------------------ 
+//------------------------------------------------------------------------
 
 class CAjouterPolyligne : public Commande
 {
@@ -29,16 +29,14 @@ class CAjouterPolyligne : public Commande
 
 public:
 //----------------------------------------------------- Méthodes publiques
-	virtual void execute(map<string,ElemtGeo*>* mapInsert);
-	virtual void undo(map<string,ElemtGeo*>* mapInsert,vector <vector<string> >* comm);
-	string getName();
-	int getPos();
+void execute(map<string,ElemtGeo*>* mapInsert);
+void undo(map<string,ElemtGeo*>* mapInsert);
 //-------------------------------------------- Constructeurs - destructeur
-    CAjouterPolyligne (string buff,vector<int> entry,int pos);
+    CAjouterPolyligne (string buff,vector<int> entry);
 
     virtual ~CAjouterPolyligne ( );
 
-//------------------------------------------------------------------ PRIVE 
+//------------------------------------------------------------------ PRIVE
 
 protected:
 //----------------------------------------------------- Méthodes protégées
@@ -46,7 +44,8 @@ protected:
 //----------------------------------------------------- Attributs protégés
 string name;
 vector<int> coordonnees;
-int posCommandStore;
+string ligneCommande;
+string commentaireCommande;
 };
 
 //--------------------------- Autres définitions dépendantes de <CAjouterPolyligne>

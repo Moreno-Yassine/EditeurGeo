@@ -10,47 +10,42 @@
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
-using namespace std;
 #include <iostream>
-
+#include <sstream>
 //------------------------------------------------------ Include personnel
 #include "CAjouterAgg.h"
-
 //------------------------------------------------------------- Constantes
 
 //----------------------------------------------------------------- PUBLIC
-
+using namespace std;
 //----------------------------------------------------- Méthodes publiques
-// type CAjouterAgg::Méthode ( liste des paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
-
-
-//------------------------------------------------- Surcharge d'opérateurs
-CAjouterAgg & CAjouterAgg::operator = ( const CAjouterAgg & unCAjouterAgg )
-// Algorithme :
-//
-{
-} //----- Fin de operator =
-
-
+    void CAjouterAgg::execute (map<string,ElemtGeo*>* mapInsert)
+    {
+        vector<ElemtGeo*> push;
+       for (unsigned int i=0;i<coalition.size();i++)
+       {
+           push.push_back((mapInsert->find(coalition[i]))->second);
+       }
+       Aggregate* a = new Aggregate(name,push);
+       mapInsert->insert(make_pair(name,a));
+    }
+     void  CAjouterAgg::undo(map<string,ElemtGeo*>* mapInsert)
+     {
+        delete (*mapInsert)[name];
+        mapInsert->erase(name);
+     }
 //-------------------------------------------- Constructeurs - destructeur
-CAjouterAgg::CAjouterAgg ( const CAjouterAgg & unCAjouterAgg )
-// Algorithme :
-//
+CAjouterAgg::CAjouterAgg (string buff,vector<string> entry)
 {
-#ifdef MAP
-    cout << "Appel au constructeur de copie de <CAjouterAgg>" << endl;
-#endif
-} //----- Fin de CAjouterAgg (constructeur de copie)
-
-
-CAjouterAgg::CAjouterAgg ( )
-// Algorithme :
-//
-{
+    name = buff;
+	ostringstream concat;
+	concat<<"OA"<<" "<<name;
+	for (unsigned int i=0;i<entry.size();i++)
+	{
+		coalition.push_back(entry[i]);
+		concat<<" "<<entry[i];
+	}
+    ligneCommande=concat.str();
 #ifdef MAP
     cout << "Appel au constructeur de <CAjouterAgg>" << endl;
 #endif
@@ -58,16 +53,8 @@ CAjouterAgg::CAjouterAgg ( )
 
 
 CAjouterAgg::~CAjouterAgg ( )
-// Algorithme :
-//
 {
 #ifdef MAP
     cout << "Appel au destructeur de <CAjouterAgg>" << endl;
 #endif
 } //----- Fin de ~CAjouterAgg
-
-
-//------------------------------------------------------------------ PRIVE
-
-//----------------------------------------------------- Méthodes protégées
-

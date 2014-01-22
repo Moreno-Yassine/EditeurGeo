@@ -25,23 +25,13 @@ void CAjouterCercle::execute(map<string,ElemtGeo*>* mapInsert)
 	mapInsert->insert(make_pair(name,C));
 }
 
-void CAjouterCercle::undo(map<string,ElemtGeo*>* mapInsert,vector <vector<string> >* comm)
+void CAjouterCercle::undo(map<string,ElemtGeo*>* mapInsert)
 {
    delete (*mapInsert)[name];
    mapInsert->erase(name);
-   comm->erase((comm->begin())+posCommandStore);
-   comm->erase((comm->begin())+posCommandStore);
-}
-string CAjouterCercle::getName()
-{
-	return name;
-}
-int CAjouterCercle::getPos()
-{
-	return posCommandStore;
 }
 //-------------------------------------------- Constructeurs - destructeur
-CAjouterCercle::CAjouterCercle (string buff, int a, int b, int ray,int pos)
+CAjouterCercle::CAjouterCercle (string buff, int a, int b, int ray)
 // Algorithme :
 //
 {
@@ -49,7 +39,10 @@ CAjouterCercle::CAjouterCercle (string buff, int a, int b, int ray,int pos)
 	x1=a;
 	x2=b;
 	r=ray;
-	posCommandStore=pos;
+	ostringstream concat;
+	concat<<"C"<<" "<<name<<" "<<x1<<" "<<x2<<" "<<r;
+    ligneCommande=concat.str();
+    commentaireCommande = creation + name;
 #ifdef MAP
     cout << "Appel au constructeur de <CAjouterCercle>" << endl;
 #endif

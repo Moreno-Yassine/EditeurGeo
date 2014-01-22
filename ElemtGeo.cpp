@@ -20,9 +20,13 @@ using namespace std;
 
 //----------------------------------------------------------------- PUBLIC
 
+string ElemtGeo::getName()
+{
+    return name;
+}
 //-------------------------------------------- Constructeurs - destructeur
 
-ElemtGeo::ElemtGeo (string buff )
+ElemtGeo::ElemtGeo (string buff)
 // Algorithme :
 //
 {
@@ -32,7 +36,10 @@ ElemtGeo::ElemtGeo (string buff )
 #endif
 } //----- Fin de ElemtGeo
 
-
+ElemtGeo::ElemtGeo(const ElemtGeo &other)
+{
+    name = other.name;
+}
 ElemtGeo::~ElemtGeo ( )
 // Algorithme :
 //
@@ -41,4 +48,5 @@ ElemtGeo::~ElemtGeo ( )
     cout << "Appel au destructeur de <ElemtGeo>" << endl;
 #endif
 } //----- Fin de ~ElemtGeo
+
 

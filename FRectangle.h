@@ -12,16 +12,17 @@
 //--------------------------------------------------- Interfaces utilisées
 #include "ElemtGeo.h"
 #include "Point.h"
+#include "Commande.h"
 #include <string>
-//------------------------------------------------------------- Constantes 
+//------------------------------------------------------------- Constantes
 
-//------------------------------------------------------------------ Types 
+//------------------------------------------------------------------ Types
 
-//------------------------------------------------------------------------ 
+//------------------------------------------------------------------------
 // Rôle de la classe <FRectangle>
 //
 //
-//------------------------------------------------------------------------ 
+//------------------------------------------------------------------------
 using namespace std ;
 class FRectangle : public ElemtGeo
 {
@@ -29,37 +30,16 @@ class FRectangle : public ElemtGeo
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste des paramètres );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+    string getSaveCommande();
 	virtual void Move(int dx, int dy);
-
-//------------------------------------------------- Surcharge d'opérateurs
-
-
-
+	string checker();
 //-------------------------------------------- Constructeurs - destructeur
-
-
-    FRectangle (string buff, int x1, int y1, int x2, int y2 );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
+    FRectangle (string buff, int x1, int y1, int x2, int y2);
+    FRectangle (const FRectangle &other);
     virtual ~FRectangle ( );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
-//------------------------------------------------------------------ PRIVE 
+//------------------------------------------------------------------ PRIVE
 
 protected:
-//----------------------------------------------------- Méthodes protégées
-
 //----------------------------------------------------- Attributs protégés
     Point csg;
     Point cif;

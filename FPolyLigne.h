@@ -12,17 +12,18 @@
 //--------------------------------------------------- Interfaces utilisées
 #include "ElemtGeo.h"
 #include "Point.h"
+#include "Commande.h"
 #include <string>
 #include <vector>
-//------------------------------------------------------------- Constantes 
+//------------------------------------------------------------- Constantes
 
-//------------------------------------------------------------------ Types 
+//------------------------------------------------------------------ Types
 
-//------------------------------------------------------------------------ 
+//------------------------------------------------------------------------
 // Rôle de la classe <FPolyLigne>
 //
 //
-//------------------------------------------------------------------------ 
+//------------------------------------------------------------------------
 
 class FPolyLigne : public ElemtGeo
 {
@@ -30,36 +31,16 @@ class FPolyLigne : public ElemtGeo
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste des paramètres );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+    string getSaveCommande();
 	void Move(int dx,int dy);
-
-//------------------------------------------------- Surcharge d'opérateurs
-
-
-
+	string checker();
 //-------------------------------------------- Constructeurs - destructeur
-
     FPolyLigne ( string buff, vector<int> input);
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
+    FPolyLigne (const FPolyLigne &other);
     virtual ~FPolyLigne ( );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
-//------------------------------------------------------------------ PRIVE 
+//------------------------------------------------------------------ PRIVE
 
 protected:
-//----------------------------------------------------- Méthodes protégées
-
 //----------------------------------------------------- Attributs protégés
     vector<Point> Coord;
 };

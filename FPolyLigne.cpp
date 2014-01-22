@@ -12,20 +12,17 @@
 //-------------------------------------------------------- Include système
 using namespace std;
 #include <iostream>
-
+#include <sstream>
+#include <string>
 //------------------------------------------------------ Include personnel
 #include "FPolyLigne.h"
 
 //------------------------------------------------------------- Constantes
-
+const string polyname = "PL";
+const string espace = " ";
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-// type FPolyLigne::Méthode ( liste des paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
 
 void FPolyLigne::Move(int dx, int dy)
 {
@@ -34,13 +31,21 @@ void FPolyLigne::Move(int dx, int dy)
         Coord[k].Move(dx,dy);
     }
 }
-//------------------------------------------------- Surcharge d'opérateurs
-
-
-
+string FPolyLigne::getSaveCommande()
+{
+    ostringstream o;
+    o << polyname<<espace<<name;
+    for (unsigned int k=0; k!=Coord.size(); k++)
+    {
+        o<<espace<<Coord[k].getX()<<espace<<Coord[k].getY();
+    }
+    return o.str();
+}
+string FPolyLigne::checker()
+{
+    return "FPolyLigne";
+}
 //-------------------------------------------- Constructeurs - destructeur
-
-
 
 FPolyLigne::FPolyLigne ( string buff, vector<int> input):ElemtGeo(buff)
 // Algorithme :
@@ -57,6 +62,15 @@ FPolyLigne::FPolyLigne ( string buff, vector<int> input):ElemtGeo(buff)
 #endif
 } //----- Fin de FPolyLigne
 
+FPolyLigne::FPolyLigne (const FPolyLigne &other):ElemtGeo(other.name)
+// Algorithme :
+//
+{
+    Coord=other.Coord;
+#ifdef MAP
+    cout << "Appel au constructeur de <FPolyLigne>" << endl;
+#endif
+}
 
 FPolyLigne::~FPolyLigne ( )
 // Algorithme :

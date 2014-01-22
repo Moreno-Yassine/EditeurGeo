@@ -12,28 +12,32 @@
 //-------------------------------------------------------- Include système
 using namespace std;
 #include <iostream>
-
+#include <string>
+#include <sstream>
 //------------------------------------------------------ Include personnel
 #include "FCercle.h"
 
 //------------------------------------------------------------- Constantes
-
+const string cerclename = "C";
+const string espace = " ";
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-// type FCercle::Méthode ( liste des paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
+string FCercle::getSaveCommande()
+{
+    ostringstream o;
+    o << cerclename <<espace<<name<<espace<<centre.getX()<<espace<<centre.getY()<<espace<<rayon;
+    return o.str();
+}
+
 void FCercle::Move(int dx,int dy)
 {
     centre.Move(dx,dy);
 }
-
-//------------------------------------------------- Surcharge d'opérateurs
-
-
+string FCercle::checker()
+{
+    return "FCercle";
+}
 //-------------------------------------------- Constructeurs - destructeur
 
 
@@ -47,6 +51,15 @@ FCercle::FCercle ( string buff, int x, int y, int r): ElemtGeo(buff),centre(x,y)
 #endif
 } //----- Fin de FCercle
 
+FCercle::FCercle (const FCercle &other): ElemtGeo(other.name),centre(other.centre)
+// Algorithme :
+//
+{
+	rayon = other.rayon;
+#ifdef MAP
+    cout << "Appel au constructeur de <FCercle>" << endl;
+#endif
+}
 
 FCercle::~FCercle ( )
 // Algorithme :

@@ -10,16 +10,24 @@
 #define CUNDO_H_
 
 //--------------------------------------------------- Interfaces utilisées
+#include <vector>
+#include <map>
+#include <string>
+#include <cstdlib>
+#include <stdio.h>
+#include <string.h>
 
-//------------------------------------------------------------- Constantes 
+#include "ElemtGeo.h"
+#include "Commande.h"
+//------------------------------------------------------------- Constantes
 
-//------------------------------------------------------------------ Types 
+//------------------------------------------------------------------ Types
 
-//------------------------------------------------------------------------ 
+//------------------------------------------------------------------------
 // Rôle de la classe <CUndo>
 //
 //
-//------------------------------------------------------------------------ 
+//------------------------------------------------------------------------
 
 class CUndo
 {
@@ -27,28 +35,9 @@ class CUndo
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste des paramètres );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
-
-//------------------------------------------------- Surcharge d'opérateurs
-    CUndo & operator = ( const CUndo & unCUndo );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
-
+void execute(map<string,ElemtGeo*>* mapInsert,vector<Commande*>* execline,vector<Commande*>* execlinesecond);
+void undo(map<string,ElemtGeo*>* mapInsert,vector<Commande*>* execline,vector<Commande*>* execlinesecond);
 //-------------------------------------------- Constructeurs - destructeur
-    CUndo ( const CUndo & unCUndo );
-    // Mode d'emploi (constructeur de copie) :
-    //
-    // Contrat :
-    //
-
     CUndo ( );
     // Mode d'emploi :
     //
@@ -61,13 +50,9 @@ public:
     // Contrat :
     //
 
-//------------------------------------------------------------------ PRIVE 
+//------------------------------------------------------------------ PRIVE
 
 protected:
-//----------------------------------------------------- Méthodes protégées
-
-//----------------------------------------------------- Attributs protégés
-
 };
 
 //--------------------------- Autres définitions dépendantes de <CUndo>

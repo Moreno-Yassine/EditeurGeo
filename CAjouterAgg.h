@@ -10,46 +10,29 @@
 #define CAJOUTERAGG_H_
 
 //--------------------------------------------------- Interfaces utilisées
+#include "Commande.h"
+#include "ElemtGeo.h"
+#include "Aggregate.h"
+//------------------------------------------------------------- Constantes
 
-//------------------------------------------------------------- Constantes 
+//------------------------------------------------------------------ Types
 
-//------------------------------------------------------------------ Types 
-
-//------------------------------------------------------------------------ 
+//------------------------------------------------------------------------
 // Rôle de la classe <CAjouterAgg>
 //
 //
-//------------------------------------------------------------------------ 
+//------------------------------------------------------------------------
 
-class CAjouterAgg
+class CAjouterAgg : public Commande
 {
 //----------------------------------------------------------------- PUBLIC
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste des paramètres );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
-
-//------------------------------------------------- Surcharge d'opérateurs
-    CAjouterAgg & operator = ( const CAjouterAgg & unCAjouterAgg );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
-
+     void execute (map<string,ElemtGeo*>* mapInsert);
+     void undo(map<string,ElemtGeo*>* mapInsert);
 //-------------------------------------------- Constructeurs - destructeur
-    CAjouterAgg ( const CAjouterAgg & unCAjouterAgg );
-    // Mode d'emploi (constructeur de copie) :
-    //
-    // Contrat :
-    //
-
-    CAjouterAgg ( );
+    CAjouterAgg (string buff,vector<string> entry);
     // Mode d'emploi :
     //
     // Contrat :
@@ -61,13 +44,13 @@ public:
     // Contrat :
     //
 
-//------------------------------------------------------------------ PRIVE 
+//------------------------------------------------------------------ PRIVE
 
 protected:
-//----------------------------------------------------- Méthodes protégées
-
 //----------------------------------------------------- Attributs protégés
-
+vector<string> coalition;
+string name;
+string ligneCommande;
 };
 
 //--------------------------- Autres définitions dépendantes de <CAjouterAgg>

@@ -10,46 +10,28 @@
 #define CMOVE_H_
 
 //--------------------------------------------------- Interfaces utilisées
+#include "CliParser.h"
+#include "Commande.h"
+//------------------------------------------------------------- Constantes
 
-//------------------------------------------------------------- Constantes 
+//------------------------------------------------------------------ Types
 
-//------------------------------------------------------------------ Types 
-
-//------------------------------------------------------------------------ 
+//------------------------------------------------------------------------
 // Rôle de la classe <CMove>
 //
 //
-//------------------------------------------------------------------------ 
+//------------------------------------------------------------------------
 
-class CMove
+class CMove : public Commande
 {
 //----------------------------------------------------------------- PUBLIC
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste des paramètres );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
-
-//------------------------------------------------- Surcharge d'opérateurs
-    CMove & operator = ( const CMove & unCMove );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
-
+    void execute (map<string,ElemtGeo*>* mapInsert);
+    void undo(map<string,ElemtGeo*>* mapInsert);
 //-------------------------------------------- Constructeurs - destructeur
-    CMove ( const CMove & unCMove );
-    // Mode d'emploi (constructeur de copie) :
-    //
-    // Contrat :
-    //
-
-    CMove ( );
+    CMove (string buff,int x,int y);
     // Mode d'emploi :
     //
     // Contrat :
@@ -61,13 +43,15 @@ public:
     // Contrat :
     //
 
-//------------------------------------------------------------------ PRIVE 
+//------------------------------------------------------------------ PRIVE
 
 protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
-
+int dx;
+int dy;
+string object;
 };
 
 //--------------------------- Autres définitions dépendantes de <CMove>

@@ -6,15 +6,14 @@
 *************************************************************************/
 
 //---------- Réalisation de la classe <CliParser> (fichier CliParser.cpp) -------
-
+using namespace std;
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
-using namespace std;
 #include <iostream>
-
 //------------------------------------------------------ Include personnel
 #include "CliParser.h"
+#include "Aggregate.h"
 #include "FRectangle.h"
 #include "FCercle.h"
 #include "FLigne.h"
@@ -26,9 +25,8 @@ using namespace std;
 #include "CAjouterAgg.h"
 #include "CMove.h"
 #include "CDelete.h"
-#include "CUndo.h"
-//------------------------------------------------------------- Constantes
-map <string,ElemtGeo*>::iterator it;
+#include "CClear.h"
+#include "CLoad.h"
 //----------------------------------------------------------------- PUBLIC
 
 CliParser::CliParser ( )
@@ -59,7 +57,6 @@ void CliParser::InputCmd (vector<string> cmd)
 {
 int argc = cmd.size();
 string msgComment;
-bool object = false;
 
   switch (argc)
       {
@@ -75,48 +72,48 @@ bool object = false;
                 currentCommentStore.clear();
                 objectStore.clear();
                 executionline.clear();
-                commandStore.clear(); // final FLUSH
+            // final FLUSH ????????????????????????????????????
             }
             else if (cmd[cmdroot].compare(clrcmd)==0) // CLASSE CCLEAR
             {
-                commandStore.clear();
-                objectStore.clear();
-                executionline.clear();
+                undoMode = false;
+                CClear* c =new CClear();
+                c->execute(&objectStore);
+                executionline.push_back(c);
                 cout << success <<endl;
             }
             else if (cmd[cmdroot].compare(listcmd)==0)
             {
-                bool emptyStore = true ;
-                for (unsigned int k=0; k!= commandStore.size();k++)
+                if (!objectStore.empty())
                 {
-                     if (commandStore[k][cmdroot].find(comment)==string::npos && commandStore[k][cmdroot].find(delcmd)==string::npos)
-                     {
-                        for (unsigned int i=0; i!=commandStore[k].size();i++)
-                        {
-                            cout << commandStore[k][i] << space;
-                            emptyStore = false ;
-                        }
-                        cout << endl;
-                     }
+                    map <string,ElemtGeo*>::iterator iter=objectStore.begin();
+                    while (iter!=objectStore.end())
+                    {
+                    cout<<(iter->second)->getSaveCommande()<<endl;
+                    iter++;
+                    }
                 }
-                if (emptyStore)
+                else
                 {
-                    cout << errorEmpty << endl;
+                    cout << errorEmpty <<endl;
                 }
+
             }
             else if (cmd[cmdroot].compare(undocmd)==0)
             {
                 if (!executionline.empty())
                 {
                     undoMode = true;
-                    executionline[(executionline.size())-1]->undo(&objectStore,&commandStore);
-                    delete executionline[(executionline.size())-1];
-                    executionline.pop_back();
+                    (executionlinesecondary).push_back(executionline[(executionline.size())-1]);
+                    executionline[(executionline.size())-1]->undo(&objectStore);
+                        //delete
+                        executionline.pop_back();
                     cout << success <<endl;
                 }
                 else
                 {
                     cout <<fail<<endl;
+                    cout <<errorUNDO<<endl;
                 }
 
             }
@@ -124,9 +121,24 @@ bool object = false;
             {
                 if (undoMode)
                 {
-                	cout << success <<endl;
-                }
+                    if (!executionlinesecondary.empty())
+                     {
+                            executionlinesecondary[(executionlinesecondary.size())-1]->execute(&objectStore);
+                            executionline.push_back(executionlinesecondary[(executionlinesecondary.size())-1]);
 
+                        executionlinesecondary.pop_back();
+                        cout << success <<endl;
+                     }
+                     else
+                     {
+                         cout << fail <<endl;
+                     }
+                }
+                else
+                {
+                    cout << fail <<endl;
+                    cout << errorREDO<<endl;
+                }
             }
 
             // UNKNOWN/UNSUPPORTED COMMAND
@@ -145,13 +157,16 @@ bool object = false;
                 {
 					if (objectStore.find(cmd[cmdobjectname])==objectStore.end())
 					{
-						object = true;
+						undoMode = false;
 						string name = cmd[cmdobjectname];
-						CAjouterCercle* c = new CAjouterCercle(name,atoi(cmd[cmdcerclex].c_str()),atoi(cmd[cmdcercley].c_str()),atoi(cmd[cmdcercleradius].c_str()),commandStore.size());
+						CAjouterCercle* c = new CAjouterCercle(name,atoi(cmd[cmdcerclex].c_str()),atoi(cmd[cmdcercley].c_str()),atoi(cmd[cmdcercleradius].c_str()));
 						c->execute(&objectStore);
-						executionline.push_back(c);
-						msgComment = creation + cmd[cmdargroot];
-						cout << msgComment<<endl;
+						if (!loadingMode)
+						{
+						    executionline.push_back(c);
+						    msgComment = creation + cmd[cmdargroot];
+                            cout << msgComment<<endl;
+						}
 					}
 					else
 					{
@@ -172,12 +187,15 @@ bool object = false;
 
 					if (objectStore.find(cmd[cmdobjectname])==objectStore.end())
 					{
-						object = true;
-						CAjouterRectangle* c = new CAjouterRectangle(cmd[cmdobjectname],atoi(cmd[cmdrectanglex1].c_str()),atoi(cmd[cmdrectangley1].c_str()),atoi(cmd[cmdrectanglex2].c_str()),atoi(cmd[cmdrectangley2].c_str()),commandStore.size());
+						undoMode = false;
+						CAjouterRectangle* c = new CAjouterRectangle(cmd[cmdobjectname],atoi(cmd[cmdrectanglex1].c_str()),atoi(cmd[cmdrectangley1].c_str()),atoi(cmd[cmdrectanglex2].c_str()),atoi(cmd[cmdrectangley2].c_str()));
 						c->execute(&objectStore);
-						executionline.push_back(c);
-						msgComment = creation + cmd[cmdargroot]; // TO STORE : AFTER CHECK OF ARGS !
-						cout << msgComment<<endl;
+						if (!loadingMode)
+						{
+						    executionline.push_back(c);
+                            msgComment = creation + cmd[cmdargroot]; // TO STORE : AFTER CHECK OF ARGS !
+                            cout << msgComment<<endl;
+						}
 					}
 					else
 					{
@@ -197,12 +215,15 @@ bool object = false;
 				{
 					if (objectStore.find(cmd[cmdobjectname])==objectStore.end())
 					{
-						object = true;
-						CAjouterLigne* c = new CAjouterLigne(cmd[cmdobjectname],atoi(cmd[cmdlinex1].c_str()),atoi(cmd[cmdliney1].c_str()),atoi(cmd[cmdlinex2].c_str()),atoi(cmd[cmdliney2].c_str()),commandStore.size());
+						undoMode = false;
+						CAjouterLigne* c = new CAjouterLigne(cmd[cmdobjectname],atoi(cmd[cmdlinex1].c_str()),atoi(cmd[cmdliney1].c_str()),atoi(cmd[cmdlinex2].c_str()),atoi(cmd[cmdliney2].c_str()));
 						c->execute(&objectStore);
-						executionline.push_back(c);
-						msgComment = creation + cmd[cmdargroot]; // TO STORE : AFTER CHECK OF ARGS !
-						cout << msgComment<<endl;
+						if (!loadingMode)
+						{
+						    executionline.push_back(c);
+                            msgComment = creation + cmd[cmdargroot]; // TO STORE : AFTER CHECK OF ARGS !
+                            cout << msgComment<<endl;
+						}
 					}
 					else
 					{
@@ -235,12 +256,15 @@ bool object = false;
 
 						if (objectStore.find(cmd[cmdobjectname])==objectStore.end())
 						{
-							object = true;
-							CAjouterPolyligne* c = new CAjouterPolyligne(cmd[cmdobjectname],coord,commandStore.size());
+							undoMode = false;
+							CAjouterPolyligne* c = new CAjouterPolyligne(cmd[cmdobjectname],coord);
 							c->execute(&objectStore);
-							executionline.push_back(c);
+							if (!loadingMode)
+                            {
+						    executionline.push_back(c);
 							msgComment = creation + cmd[cmdargroot]; // TO STORE : AFTER CHECK OF ARGS !
 							cout << msgComment<<endl;
+                            }
 						}
 						else
 						{
@@ -262,53 +286,83 @@ bool object = false;
             }
             else if (cmd[cmdroot].compare(aggcmd)==0)
             {
-                object = true;
-                msgComment = creation + cmd[cmdargroot]; // TO STORE : AFTER CHECK OF ARGS !
-                cout << msgComment<<endl;
+                if (cmd.size()>= cmdaggcheck && !cmd[cmdobjectname].empty())
+				{
+            		bool error = false;
+            		vector<string> input;
+            		for(unsigned int i = firstobj; i<cmd.size(); i++)
+            		{
+            			if(!objchecker(cmd[i]))
+            			{
+            				error = true;
+            			}
+            			input.push_back(cmd[i]);
+            		}
+            		if(!error)
+            		{
+
+						if (objectStore.find(cmd[cmdobjectname])==objectStore.end())
+						{
+							undoMode = false;
+							CAjouterAgg* c = new CAjouterAgg(cmd[cmdobjectname],input);
+							c->execute(&objectStore);
+							if (!loadingMode)
+                            {
+						    executionline.push_back(c);
+							msgComment = creation + cmd[cmdargroot]; // TO STORE : AFTER CHECK OF ARGS !
+							cout << msgComment<<endl;
+                            }
+						}
+						else
+						{
+							cout << fail <<endl;
+							cout<< errorName <<endl;
+						}
+					}
+            		else
+					{
+						cout << fail <<endl;
+						cout << errorArgs<<endl;
+					}
+            	}
+            	else
+				{
+					cout << fail <<endl;
+					cout << errorArgs<<endl;
+				}
             }
             else if (cmd[cmdroot].compare(savecmd)==0) // SAVE
             {
                 ofstream os (cmd[cmdargroot].c_str());
-                for (unsigned int i=0; i<commandStore.size(); i++)
+                os << savefile <<endl;
+                map <string,ElemtGeo*>::iterator iter=objectStore.begin();
+                while (iter!=objectStore.end())
                 {
-                    for (unsigned int j=0;j<commandStore[i].size();j++)
+                    if (iter!=(--objectStore.end()))
                     {
-                    	if (commandStore[i][cmdroot].compare(delcmd)==0)
-                    	{
-                    		break;
-                    	}
-                        if (j == commandStore[i].size()-1)
-                        {
-                            os << commandStore[i][j];
-                        }
-                        else
-                        {
-                            os << commandStore[i][j]<<space;
-                        }
+                        os<<(iter->second)->getSaveCommande()<<endl;
+                        iter++;
                     }
-                    if (i!=commandStore.size()-1)
+                    else
                     {
-                    	if (commandStore[i][cmdroot].compare(delcmd)!=0)
-                		{
-                    	os <<endl;
-                		}
-
+                        os<<(iter->second)->getSaveCommande();
+                        iter++;
                     }
                 }
-                cout << success <<endl;
             }
             else if (cmd[cmdroot].compare(loadcmd)==0) // LOAD
             {
                 loadingMode = true;
                 currentCommandInput.clear();
-                // CLEAR THE CURRENT STORAGE ???? : NO !
+                CLoad* c = new CLoad();
+                c->execute(&objectStore);
+                executionline.push_back(c);
                 ifstream file (cmd[cmdargroot].c_str());
-
                 if (file)
                 {
                     while (!file.eof())
                     {
-                      InputParser(file); // READING
+                      InputParser(file); // READING // IMPLEMENTER UN CHECKER D'OBJETS !!!!!!!!!!!!!!
                       if (!currentCommandInput.empty())
                       {
                           InputCmd(currentCommandInput); // APPLY
@@ -327,7 +381,7 @@ bool object = false;
             {
             	if (cmd.size() >= firstcoord)
             	{
-            		object =true;
+            		undoMode = false;
             		unsigned int k= cmdobjectname;
             		bool error = false;
             		while (k<cmd.size() && !error)
@@ -350,9 +404,8 @@ bool object = false;
             			{
             				abattoir.push_back(cmd[i]);
             			}
-            			CDelete* c = new CDelete(abattoir,commandStore.size());
-            			c->fetch(&executionline);
-						c->executeDELETE(&objectStore,&commandStore);
+            			CDelete* c = new CDelete(abattoir);
+						c->execute(&objectStore);
 						executionline.push_back(c);
             			cout << success <<endl;
             		}
@@ -369,7 +422,9 @@ bool object = false;
             	{
             		if(objectStore.find(cmd[cmdobjectname])!= objectStore.end())
             		{
-            			objectStore[cmd[cmdobjectname]]->Move(atoi(cmd[cmdmovex].c_str()),atoi(cmd[cmdmovey].c_str()));
+            		    CMove* c = new CMove(cmd[cmdobjectname],atoi(cmd[cmdmovex].c_str()),atoi(cmd[cmdmovey].c_str()));
+                        c->execute(&objectStore);
+                        executionline.push_back(c);
             			cout << success <<endl;
             			cout << movement <<cmd[cmdobjectname]<<endl;
             		}
@@ -378,7 +433,6 @@ bool object = false;
 					cout << fail <<endl;
 					cout << errorObject<<endl;
             		}
-            		//ATTENTION POUR LE UNDO DE MOVE ET LOAD !!!!!!
             	}
             	else
             	{
@@ -390,20 +444,15 @@ bool object = false;
             break;
 
       }
-    if (object)
-    {
-        commandStore.push_back(cmd);
-        if (!msgComment.empty())
-        {currentCommentStore.push_back(msgComment);
-        commandStore.push_back(currentCommentStore);}
-        manualCommentCounter =cmdroot;
-    }
     currentCommandInput.clear();
     currentCommentStore.clear();
 
+/*for (int k=0; k<executionline.size();k++)
+   {
+    cout << executionline[k]->getLigneCommande() << endl;
+   }
 
-    cout << executionline.size() << endl << endl;
-    cout << objectStore.size() << endl;
+    cout << objectStore.size() << endl;*/
 }
 
 void CliParser::InputParser(istream &is)
@@ -418,7 +467,6 @@ void CliParser::InputParser(istream &is)
         {
             vector<string> bufferComment;
             bufferComment.push_back(buffer);
-            commandStore.push_back(bufferComment);
         }
     }
     else
@@ -448,4 +496,16 @@ bool CliParser::intchecker (string buff)
 		}
 	}
 	return true;
+}
+
+bool CliParser::objchecker(string buff)
+{
+    if (objectStore.find(buff)!=objectStore.end())
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }

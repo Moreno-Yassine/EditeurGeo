@@ -27,32 +27,27 @@ void CAjouterPolyligne::execute(map<string,ElemtGeo*>* mapInsert)
 	mapInsert->insert(make_pair(name,pL));
 }
 
-void CAjouterPolyligne::undo(map<string,ElemtGeo*>* mapInsert,vector <vector<string> >* comm)
+void CAjouterPolyligne::undo(map<string,ElemtGeo*>* mapInsert)
 {
 	delete (*mapInsert)[name];
 	   mapInsert->erase(name);
-	   comm->erase((comm->begin())+posCommandStore);
-	   comm->erase((comm->begin())+posCommandStore);
 }
-string CAjouterPolyligne::getName()
-{
-	return name;
-}
-int CAjouterPolyligne::getPos()
-{
-	return posCommandStore;
-}
+
 //-------------------------------------------- Constructeurs - destructeur
-CAjouterPolyligne::CAjouterPolyligne (string buff,vector<int> entry,int pos)
+CAjouterPolyligne::CAjouterPolyligne (string buff,vector<int> entry)
 // Algorithme :
 //
 {
 	name = buff;
+	ostringstream concat;
+	concat<<"PL"<<" "<<name;
 	for (unsigned int i=0;i<entry.size();i++)
 	{
 		coordonnees.push_back(entry[i]);
+		concat<<" "<<entry[i];
 	}
-	posCommandStore=pos;
+    ligneCommande=concat.str();
+    commentaireCommande = creation + name;
 #ifdef MAP
     cout << "Appel au constructeur de <CAjouterPolyligne>" << endl;
 #endif

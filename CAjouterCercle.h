@@ -32,21 +32,20 @@ class CAjouterCercle : public Commande
 
 public:
 //----------------------------------------------------- Méthodes publiques
-virtual void execute(map<string,ElemtGeo*>* mapInsert);
-virtual void undo(map<string,ElemtGeo*>* mapInsert,vector <vector<string> >* comm);
-string getName();
-int getPos();
+void execute(map<string,ElemtGeo*>* mapInsert);
+void undo(map<string,ElemtGeo*>* mapInsert);
 //-------------------------------------------- Constructeurs - destructeur
-    CAjouterCercle (string buff,int x1,int x2,int r,int pos);
+    CAjouterCercle (string buff,int x1,int x2,int r);
     virtual ~CAjouterCercle ( );
 //------------------------------------------------------------------ PRIVE
 protected:
 //----------------------------------------------------- Attributs protégés
 string name;
+string ligneCommande;
+string commentaireCommande;
 int x1;
 int x2;
 int r;
-int posCommandStore;
 };
 
 //--------------------------- Autres définitions dépendantes de <CAjouterCercle>

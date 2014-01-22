@@ -27,23 +27,13 @@ void CAjouterLigne::execute(map<string,ElemtGeo*>* mapInsert)
 	mapInsert->insert(make_pair(name,L));
 }
 
-void CAjouterLigne::undo(map<string,ElemtGeo*>* mapInsert,vector <vector<string> >* comm)
+void CAjouterLigne::undo(map<string,ElemtGeo*>* mapInsert)
 {
 	delete (*mapInsert)[name];
    mapInsert->erase(name);
-   comm->erase((comm->begin())+posCommandStore);
-   comm->erase((comm->begin())+posCommandStore);
-}
-string CAjouterLigne::getName()
-{
-	return name;
-}
-int CAjouterLigne::getPos()
-{
-	return posCommandStore;
 }
 //-------------------------------------------- Constructeurs - destructeur
-CAjouterLigne::CAjouterLigne (string buff, int a, int b, int c,int d,int pos)
+CAjouterLigne::CAjouterLigne (string buff, int a, int b, int c,int d)
 // Algorithme :
 //
 {
@@ -52,7 +42,10 @@ CAjouterLigne::CAjouterLigne (string buff, int a, int b, int c,int d,int pos)
 	y1=b;
 	x2=c;
 	y2=d;
-	posCommandStore=pos;
+    ostringstream concat;
+	concat<<"L"<<" "<<name<<" "<<x1<<" "<<y1<<" "<<x2<<" "<<y2;
+    ligneCommande=concat.str();
+    commentaireCommande = creation + name;
 #ifdef MAP
     cout << "Appel au constructeur de <CAjouterLigne>" << endl;
 #endif

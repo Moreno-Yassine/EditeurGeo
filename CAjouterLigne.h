@@ -13,15 +13,15 @@
 #include "CliParser.h"
 #include "Commande.h"
 #include "FLigne.h"
-//------------------------------------------------------------- Constantes 
+//------------------------------------------------------------- Constantes
 
-//------------------------------------------------------------------ Types 
+//------------------------------------------------------------------ Types
 
-//------------------------------------------------------------------------ 
+//------------------------------------------------------------------------
 // Rôle de la classe <CAjouterLigne>
 //
 //
-//------------------------------------------------------------------------ 
+//------------------------------------------------------------------------
 
 class CAjouterLigne : public Commande
 {
@@ -29,15 +29,13 @@ class CAjouterLigne : public Commande
 
 public:
 //----------------------------------------------------- Méthodes publiques
-	virtual void execute(map<string,ElemtGeo*>* mapInsert);
-	virtual void undo(map<string,ElemtGeo*>* mapInsert,vector <vector<string> >* comm);
-	string getName();
-	int getPos();
+void execute(map<string,ElemtGeo*>* mapInsert);
+void undo(map<string,ElemtGeo*>* mapInsert);
 //-------------------------------------------- Constructeurs - destructeur
-    CAjouterLigne (string buff, int a, int b, int c,int d,int pos);
+    CAjouterLigne (string buff, int a, int b, int c,int d);
     virtual ~CAjouterLigne ( );
 
-//------------------------------------------------------------------ PRIVE 
+//------------------------------------------------------------------ PRIVE
 
 protected:
 //----------------------------------------------------- Méthodes protégées
@@ -48,7 +46,8 @@ protected:
     int x2;
     int y1;
     int y2;
-    int posCommandStore;
+    string ligneCommande;
+    string commentaireCommande;
 };
 
 //--------------------------- Autres définitions dépendantes de <CAjouterLigne>

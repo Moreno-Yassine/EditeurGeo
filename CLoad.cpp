@@ -17,35 +17,30 @@ using namespace std;
 #include "CLoad.h"
 
 //------------------------------------------------------------- Constantes
-
+const string LD = "LOAD";
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-// type CLoad::Méthode ( liste des paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
-
-
-//------------------------------------------------- Surcharge d'opérateurs
-CLoad & CLoad::operator = ( const CLoad & unCLoad )
-// Algorithme :
-//
+void CLoad::execute(map<string,ElemtGeo*>* mapInsert)
 {
-} //----- Fin de operator =
-
-
+    map <string,ElemtGeo*>::iterator iter=mapInsert->begin();
+    while (iter!=mapInsert->end())
+    {
+        mapbak.insert(make_pair(iter->first,iter->second));
+        iter++;
+    }
+}
+void CLoad::undo(map<string,ElemtGeo*>* mapInsert)
+{
+    mapInsert->clear();
+    map <string,ElemtGeo*>::iterator iter= mapbak.begin();
+    while (iter!=mapbak.end())
+    {
+        mapInsert->insert(make_pair(iter->first,iter->second));
+        iter++;
+    }
+}
 //-------------------------------------------- Constructeurs - destructeur
-CLoad::CLoad ( const CLoad & unCLoad )
-// Algorithme :
-//
-{
-#ifdef MAP
-    cout << "Appel au constructeur de copie de <CLoad>" << endl;
-#endif
-} //----- Fin de CLoad (constructeur de copie)
-
 
 CLoad::CLoad ( )
 // Algorithme :
@@ -65,9 +60,4 @@ CLoad::~CLoad ( )
     cout << "Appel au destructeur de <CLoad>" << endl;
 #endif
 } //----- Fin de ~CLoad
-
-
-//------------------------------------------------------------------ PRIVE
-
-//----------------------------------------------------- Méthodes protégées
 

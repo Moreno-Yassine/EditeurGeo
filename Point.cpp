@@ -21,17 +21,19 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-// type Point::Méthode ( liste des paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
-
-
-//------------------------------------------------- Surcharge d'opérateurs
-
-
-
+void Point::Move(int dx, int dy)
+{
+    x += dx;
+    y += dy;
+}
+int Point::getX()
+{
+    return x;
+}
+int Point::getY()
+{
+    return y;
+}
 //-------------------------------------------- Constructeurs - destructeur
 Point::Point ( const Point & other )
 // Algorithme :
@@ -66,11 +68,7 @@ Point::~Point ( )
 #endif
 } //----- Fin de ~Point
 
-void Point::Move(int dx, int dy)
-{
-    x += dx;
-    y += dy;
-}
+
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées

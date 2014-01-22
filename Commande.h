@@ -25,19 +25,10 @@ class Commande
 public:
 //----------------------------------------------------- Méthodes publiques
     virtual void execute (map<string,ElemtGeo*>* mapInsert)=0;
-    virtual void undo(map<string,ElemtGeo*>* mapInsert,vector <vector<string> >* comm)=0;
-    virtual string getName()=0;
-    virtual int getPos()=0;
+    virtual void undo(map<string,ElemtGeo*>* mapInsert)=0;
 //-------------------------------------------- Constructeurs - destructeur
     Commande ( ){}
     virtual ~Commande ( );
-//------------------------------------------------------------------ PRIVE
-
-protected:
-//----------------------------------------------------- Méthodes protégées
-
-//----------------------------------------------------- Attributs protégés
-
 };
 
 //--------------------------- Autres définitions dépendantes de <Commande>

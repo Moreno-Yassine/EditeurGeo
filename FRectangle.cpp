@@ -12,12 +12,13 @@
 //-------------------------------------------------------- Include système
 using namespace std;
 #include <iostream>
-
+#include <sstream>
+#include <string>
 //------------------------------------------------------ Include personnel
 #include "FRectangle.h"
-
 //------------------------------------------------------------- Constantes
-
+const string rectanglename = "R";
+const string espace = " ";
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
@@ -26,21 +27,20 @@ void FRectangle::Move(int dx,int dy)
     csg.Move(dx,dy);
     cif.Move(dx,dy);
 }
-// type FRectangle::Méthode ( liste des paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
-
-
-//------------------------------------------------- Surcharge d'opérateurs
-
-
-
+string FRectangle::getSaveCommande()
+{
+    ostringstream o;
+    o << rectanglename<<espace<<name<<espace<<csg.getX()<<espace<<csg.getY()<<espace<<cif.getX()<<espace<<cif.getY();
+    return o.str();
+}
+string FRectangle::checker()
+{
+    return "FRectangle";
+}
 //-------------------------------------------- Constructeurs - destructeur
 
 
-FRectangle::FRectangle (string buff, int x1, int y1, int x2, int y2 ): ElemtGeo(buff),csg(x1,y1),cif(x2,y2)
+FRectangle::FRectangle (string buff, int x1, int y1, int x2, int y2): ElemtGeo(buff),csg(x1,y1),cif(x2,y2)
 // Algorithme :
 //
 {
@@ -49,6 +49,14 @@ FRectangle::FRectangle (string buff, int x1, int y1, int x2, int y2 ): ElemtGeo(
 #endif
 } //----- Fin de FRectangle
 
+FRectangle::FRectangle (const FRectangle &other): ElemtGeo(other.name),csg(other.csg),cif(other.cif)
+// Algorithme :
+//
+{
+#ifdef MAP
+    cout << "Appel au constructeur de <FRectangle>" << endl;
+#endif
+}
 
 FRectangle::~FRectangle ( )
 // Algorithme :

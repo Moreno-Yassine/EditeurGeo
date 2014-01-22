@@ -12,15 +12,15 @@
 //--------------------------------------------------- Interfaces utilisées
 #include "CliParser.h"
 #include "Commande.h"
-//------------------------------------------------------------- Constantes 
+//------------------------------------------------------------- Constantes
 
-//------------------------------------------------------------------ Types 
+//------------------------------------------------------------------ Types
 
-//------------------------------------------------------------------------ 
+//------------------------------------------------------------------------
 // Rôle de la classe <CDelete>
 //
 //
-//------------------------------------------------------------------------ 
+//------------------------------------------------------------------------
 
 class CDelete : public Commande
 {
@@ -28,14 +28,10 @@ class CDelete : public Commande
 
 public:
 //----------------------------------------------------- Méthodes publiques
-	virtual void execute(map<string,ElemtGeo*>* mapInsert){};
-	void executeDELETE (map<string,ElemtGeo*>* mapInsert,vector <vector<string> >* comm);
-	virtual void undo(map<string,ElemtGeo*>* mapInsert,vector <vector<string> >* comm);
-	void fetch(vector<Commande*>* execline);
-	string getName(){}
-	int getPos();
+	void execute(map<string,ElemtGeo*>* mapInsert);
+	void undo(map<string,ElemtGeo*>* mapInsert);
 //-------------------------------------------- Constructeurs - destructeur
-    CDelete (vector<string> buff,int pos);
+    CDelete (vector<string> buff);
     // Mode d'emploi :
     //
     // Contrat :
@@ -47,15 +43,12 @@ public:
     // Contrat :
     //
 
-//------------------------------------------------------------------ PRIVE 
+//------------------------------------------------------------------ PRIVE
 
 protected:
-//----------------------------------------------------- Méthodes protégées
-
 //----------------------------------------------------- Attributs protégés
 vector<string> condamnes;
-vector<Commande*> resurection;
-int posCommandStore;
+vector< pair<string,ElemtGeo*> > bak;
 };
 
 //--------------------------- Autres définitions dépendantes de <CDelete>

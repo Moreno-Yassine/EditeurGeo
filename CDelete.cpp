@@ -12,52 +12,57 @@
 //-------------------------------------------------------- Include système
 using namespace std;
 #include <iostream>
-
+#include <typeinfo>
 //------------------------------------------------------ Include personnel
 #include "CDelete.h"
-
+#include "FCercle.h"
+#include "FLigne.h"
+#include "FPolyLigne.h"
+#include "FRectangle.h"
 //------------------------------------------------------------- Constantes
 
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-void CDelete::executeDELETE(map<string,ElemtGeo*>* mapInsert,vector <vector<string> >* comm)
+void CDelete::execute(map<string,ElemtGeo*>* mapInsert) // A REVOIR
 {
-	for (unsigned int i=0; i<resurection.size();i++)
+	for (unsigned int i=0; i<condamnes.size();i++)
 	{
-		delete (*mapInsert)[resurection[i]->getName()];
-	   mapInsert->erase(resurection[i]->getName());
-	   comm->erase((comm->begin())+(resurection[i]->getPos()));
-	   comm->erase((comm->begin())+(resurection[i]->getPos()));
+        bak.push_back(make_pair(condamnes[i],(*mapInsert)[condamnes[i]]));
+        map<string,ElemtGeo*>::iterator it;
+       it = mapInsert->begin();
+       while (it!=mapInsert->end())
+       {
+           if (dynamic_cast<Aggregate*>(it->second))
+           {
+            (dynamic_cast<Aggregate*>(it->second))->Deleter(condamnes[i]);
+           }
+           it++;
+       }
+       mapInsert->erase(condamnes[i]);
+
 	}
 }
-void  CDelete::undo(map<string,ElemtGeo*>* mapInsert,vector <vector<string> >* comm)
+void  CDelete::undo(map<string,ElemtGeo*>* mapInsert)
 {
-	for (unsigned int i=0;i<resurection.size();i++)
-	{
-		resurection[i]->execute(mapInsert);
-	}
-}
-void CDelete::fetch(vector<Commande*>* execline)
-{
-	for (unsigned int i=0;i<(execline->size());i++)
-	{
-		for (unsigned int k=0; k<condamnes.size();k++)
-		{
-			if ((*execline)[i]->getName().compare(condamnes[k])==0)
-			{
-				resurection.push_back((*execline)[i]);
-				execline->erase((execline->begin())+i);
-			}
-		}
-	}
-}
-int CDelete::getPos()
-{
-	return posCommandStore;
+   for (unsigned int i=0;i<bak.size();i++)
+    {
+        mapInsert->insert(bak[i]);
+        map<string,ElemtGeo*>::iterator it;
+        string backup = bak[i].first;
+       it = mapInsert->begin();
+       while (it!=mapInsert->end())
+       {
+           if (dynamic_cast<Aggregate*>(it->second))
+           {
+            (dynamic_cast<Aggregate*> (it->second))->Adder(backup);
+           }
+           it++;
+       }
+    }
 }
 //---------------------------------------resurection----- Constructeurs - destructeur
-CDelete::CDelete (vector<string> buff,int pos)
+CDelete::CDelete (vector<string> buff)
 // Algorithme :
 //
 {
@@ -65,7 +70,6 @@ CDelete::CDelete (vector<string> buff,int pos)
 	{
 		condamnes.push_back(buff[i]);
 	}
-	posCommandStore = pos;
 #ifdef MAP
     cout << "Appel au constructeur de <CDelete>" << endl;
 #endif

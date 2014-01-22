@@ -12,20 +12,15 @@
 //-------------------------------------------------------- Include système
 using namespace std;
 #include <iostream>
-
+#include <sstream>
 //------------------------------------------------------ Include personnel
 #include "Aggregate.h"
-
 //------------------------------------------------------------- Constantes
-
+const string espace = " ";
+const string cmd= "OA";
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-// type Aggregate::Méthode ( liste des paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
 
 void Aggregate::Move(int dx,int dy)
 {
@@ -34,14 +29,43 @@ void Aggregate::Move(int dx,int dy)
         composants[i]->Move(dx,dy);
     }
 }
-//------------------------------------------------- Surcharge d'opérateurs
-
-
-
+string Aggregate::getSaveCommande()
+{
+    ostringstream o;
+    o <<cmd<<espace<<name;
+    for (unsigned int k=0; k<composants.size(); k++)
+    {
+        o<<espace<<composants[k]->getName();
+    }
+    return o.str();
+}
+string Aggregate::checker()
+{
+    return cmd;
+}
+void Aggregate::Deleter(string name)
+{
+    for (unsigned int k=0; k<composants.size(); k++)
+    {
+        if (composants[k]->getName()== name)
+        {
+            deleted.push_back(composants[k]);
+           composants.erase(composants.begin()+k);
+        }
+    }
+}
+void Aggregate::Adder(string name)
+{
+    for (unsigned int k=0; k<deleted.size(); k++)
+    {
+        if (deleted[k]->getName()== name)
+        {
+            composants.push_back(deleted[k]);
+           deleted.erase(deleted.begin()+k);
+        }
+    }
+}
 //-------------------------------------------- Constructeurs - destructeur
-
-
-
 Aggregate::Aggregate ( string buff, vector<ElemtGeo*> input)
 // Algorithme :
 //

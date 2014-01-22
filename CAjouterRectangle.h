@@ -13,15 +13,15 @@
 #include "CliParser.h"
 #include "Commande.h"
 #include "FRectangle.h"
-//------------------------------------------------------------- Constantes 
+//------------------------------------------------------------- Constantes
 
-//------------------------------------------------------------------ Types 
+//------------------------------------------------------------------ Types
 
-//------------------------------------------------------------------------ 
+//------------------------------------------------------------------------
 // Rôle de la classe <CAjouterRectangle>
 //
 //
-//------------------------------------------------------------------------ 
+//------------------------------------------------------------------------
 
 class CAjouterRectangle : public Commande
 {
@@ -29,12 +29,10 @@ class CAjouterRectangle : public Commande
 
 	public:
 	//----------------------------------------------------- Méthodes publiques
-		virtual void execute(map<string,ElemtGeo*>* mapInsert);
-		virtual void undo(map<string,ElemtGeo*>* mapInsert,vector <vector<string> >* comm);
-		string getName();
-		int getPos();
+    void execute(map<string,ElemtGeo*>* mapInsert);
+    void undo(map<string,ElemtGeo*>* mapInsert);
 	//-------------------------------------------- Constructeurs - destructeur
-	    CAjouterRectangle (string buff, int a, int b, int c,int d,int pos);
+	    CAjouterRectangle (string buff, int a, int b, int c,int d);
 	    virtual ~CAjouterRectangle ( );
 
 	//------------------------------------------------------------------ PRIVE
@@ -48,7 +46,8 @@ class CAjouterRectangle : public Commande
 	    int x2;
 	    int y1;
 	    int y2;
-	    int posCommandStore;
+	    string ligneCommande;
+        string commentaireCommande;
 };
 
 //--------------------------- Autres définitions dépendantes de <CAjouterRectangle>

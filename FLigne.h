@@ -13,16 +13,16 @@
 #include "ElemtGeo.h"
 #include "Point.h"
 #include <string>
+#include "Commande.h"
+//------------------------------------------------------------- Constantes
 
-//------------------------------------------------------------- Constantes 
+//------------------------------------------------------------------ Types
 
-//------------------------------------------------------------------ Types 
-
-//------------------------------------------------------------------------ 
+//------------------------------------------------------------------------
 // Rôle de la classe <FLigne>
 //
 //
-//------------------------------------------------------------------------ 
+//------------------------------------------------------------------------
 
 class FLigne : public ElemtGeo
 {
@@ -30,37 +30,16 @@ class FLigne : public ElemtGeo
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste des paramètres );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
 	void Move(int dx, int dy);
-//------------------------------------------------- Surcharge d'opérateurs
-
-
-
+	string getSaveCommande();
+	string checker();
 //-------------------------------------------- Constructeurs - destructeur
-
-
     FLigne (string buff, int x1, int y1, int x2, int y2);
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
+    FLigne (const FLigne &other);
     virtual ~FLigne ( );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
-//------------------------------------------------------------------ PRIVE 
+//------------------------------------------------------------------ PRIVE
 
 protected:
-//----------------------------------------------------- Méthodes protégées
-
 //----------------------------------------------------- Attributs protégés
     Point depart;
     Point arrivee;

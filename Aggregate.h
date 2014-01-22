@@ -13,56 +13,36 @@
 #include <vector>
 #include <string>
 #include "ElemtGeo.h"
-//------------------------------------------------------------- Constantes 
+//------------------------------------------------------------- Constantes
 
-//------------------------------------------------------------------ Types 
+//------------------------------------------------------------------ Types
 
-//------------------------------------------------------------------------ 
+//------------------------------------------------------------------------
 // Rôle de la classe <Aggregate>
 //
 //
-//------------------------------------------------------------------------ 
+//------------------------------------------------------------------------
 using namespace std;
 class Aggregate : public ElemtGeo
 {
-//----------------------------------------------------------------- PUBLIC
 
+//----------------------------------------------------------------- PUBLIC
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste des paramètres );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
 	void Move(int dx,int dy);
-//------------------------------------------------- Surcharge d'opérateurs
-
-
-
+	string getSaveCommande();
+	string checker();
+	void Deleter(string name);
+	void Adder(string name);
 //-------------------------------------------- Constructeurs - destructeur
-
-
     Aggregate (string buff, vector<ElemtGeo*> input );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
     virtual ~Aggregate ( );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
 
-//------------------------------------------------------------------ PRIVE 
-
+//------------------------------------------------------------------ PRIVE
 protected:
-//----------------------------------------------------- Méthodes protégées
-
 //----------------------------------------------------- Attributs protégés
     vector <ElemtGeo*> composants;
-    string name;
+    vector <ElemtGeo*> deleted;
 };
 
 //--------------------------- Autres définitions dépendantes de <Aggregate>

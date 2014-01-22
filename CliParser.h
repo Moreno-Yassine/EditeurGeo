@@ -22,7 +22,7 @@
 
 #include "ElemtGeo.h"
 #include "Commande.h"
-
+#include "Aggregate.h"
 //------------------------------------------------------------- Constantes
 const string rectanglecmd = "R";
 const string circlecmd = "C";
@@ -44,8 +44,11 @@ const string savecmd = "SAVE";
 const string loadcmd = "LOAD";
 
 const string creation ="#New Object Created : ";
+const string savefile ="#OBJECTS & CURRENT POSITIONS";
 const string movement="#Object successfully moved : ";
 const string errorUnknown="#UNKNOWN COMMAND";
+const string errorUNDO="#UNDO IMPOSSIBLE : NO ACTIONS AVAILABLE";
+const string errorREDO="#REDO IMPOSSIBLE";
 const string errorArgs="#INVALID ARGUMENTS";
 const string errorObject="#OBJECT NOT FOUND";
 const string errorName="#NAME ALREADY EXISTS";
@@ -57,6 +60,9 @@ const string fail ="ERR";
 const unsigned int cmdroot = 0;
 const unsigned int cmdargroot = 1;
 const unsigned int cmdobjectname = 1;
+
+const unsigned int cmdaggcheck = 3; // for agg creation check
+const unsigned int firstobj = 2;
 
 const unsigned int cmdmovecheck = 4;
 const int cmdmovex = 2;
@@ -112,10 +118,12 @@ public:
 protected:
 //----------------------------------------------------- Méthodes protégées
     bool intchecker (string buff);
+    bool objchecker (string buff);
 //----------------------------------------------------- Attributs protégés
     vector<Commande*> executionline;
+    vector<Commande*> executionlinesecondary;
     map <string,ElemtGeo*> objectStore;
-	vector< vector<string> > commandStore;
+
     bool undoMode;
     bool loadingMode;
 };

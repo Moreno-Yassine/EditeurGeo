@@ -10,26 +10,25 @@
 #define ELEMTGEO_H_
 
 //--------------------------------------------------- Interfaces utilisées
-#include <string>
-
+#include "string"
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
-
-//------------------------------------------------------------------------
-// Rôle de la classe <ElemtGeo>
-//
-//
-//------------------------------------------------------------------------
 using namespace std;
+
 class ElemtGeo
 {
 //----------------------------------------------------------------- PUBLIC
 public:
+
 //----------------------------------------------------- Méthodes publiques
 	virtual void Move (int x,int y)= 0;
+	virtual string getSaveCommande()=0;
+	virtual string checker()=0;
+	string getName();
 //-------------------------------------------- Constructeurs - destructeur
 	ElemtGeo (){}
+	ElemtGeo (const ElemtGeo &other);
 	virtual ~ElemtGeo ( );
 //------------------------------------------------------------------ PRIVE
 protected:
