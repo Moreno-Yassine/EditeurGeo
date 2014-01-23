@@ -17,19 +17,19 @@ Une fois le logiciel lancé, les commandes suivantes permettent de créer des é
 
 >Note: chaque élément est repéré par son nom (ici représenté par 'Name')
 
- * 'C Name X1 Y1 R' pour créer un cercle;
-	-Le couple 'X1 Y1' sont les coordonnées du centre du cercle,
+ * `C Name X1 Y1 R` pour créer un cercle;
+	-Le couple `X1 Y1` sont les coordonnées du centre du cercle,
 	-'R' est sont rayon,
- * 'R Name X1 Y1 X2 Y2' pour créer un rectangle;
-	-Le couple 'X1 Y1' sont les coordonnées du coin supérieur gauche du rectangle,
-	-Le couple 'X2 Y2' sont les coordonnées du coin inférieur droit du rectangle,
- * 'L NAME X1 Y1 X2 Y2' pour créer une ligne;
-	-Le couple 'X1 Y1' sont les coordonnées du premier point duquel part la ligne,
-	-'X2 Y2' représentent la fin de celle-ci,
- * 'PL NAME X1 Y1 X2 Y2' ... ' Xn Yn' pour créer une polyligne
-	-Ici, chaque couple 'Xi Yi' sont les coordonnées des points par lesquels passe la polyligne.
+ * `R Name X1 Y1 X2 Y2` pour créer un rectangle;
+	-Le couple `X1 Y1` sont les coordonnées du coin supérieur gauche du rectangle,
+	-Le couple `X2 Y2` sont les coordonnées du coin inférieur droit du rectangle,
+ * `L NAME X1 Y1 X2 Y2` pour créer une ligne;
+	-Le couple `X1 Y1` sont les coordonnées du premier point duquel part la ligne,
+	-`X2 Y2` représentent la fin de celle-ci,
+ * `PL NAME X1 Y1 X2 Y2` ...` Xn Yn` pour créer une polyligne
+	-Ici, chaque couple `Xi Yi` sont les coordonnées des points par lesquels passe la polyligne.
 	Notons que l'ordre est ici important.
- * 'OA Name-1 Name-2'... 'Name-n' pour créer un objet agrégé, ce dernier et une collection qui contient
+ * `OA Name-1 Name-2`... `Name-n` pour créer un objet agrégé, ce dernier et une collection qui contient
  touts les objets nommés dans la ligne de commande.
 
 #Commandes auxiliaires
