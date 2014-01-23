@@ -1,8 +1,5 @@
-C Test1 1 1 2 3
-L Test2 9 8 7 3
-R Test3 12 13 14 15
-PL Test4 89 90 91 92 
-UNDO Test2
+C Test1 1 1 2 
+UNDO
 LIST
 REDO
 LIST

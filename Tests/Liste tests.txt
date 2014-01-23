@@ -3,3 +3,4 @@
 9-12: Tests sur "UNDO" (simples)
 13-17: Tests sur "DELETE" (simples)
 18-21: Tests sur "REDO" (simples)
+22-25: Test sur les grandes valeurs

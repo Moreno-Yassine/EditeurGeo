@@ -1,0 +1,5 @@
+LOAD Load.txt
+LIST
+C Test1 1 2 3
+LIST
+EXIT
