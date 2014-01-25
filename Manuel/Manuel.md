@@ -1,4 +1,4 @@
-EditeurGeo -- Edition et stockage d'éléements géométriques
+EditeurGeo -- Edition et stockage d'éléments géométriques
 ==========================================================
 
 ## DESCRIPTION
