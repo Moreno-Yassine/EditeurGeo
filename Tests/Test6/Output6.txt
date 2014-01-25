@@ -1,8 +1,14 @@
+OK
 #New Object Created : Test1
+OK
 #New Object Created : Test2
+OK
 #New Object Created : Test3
+OK
 #New Object Created : Test4
-Test1 1 1 2 
-Test2 9 8 7 3
-Test3 12 13 14 15
-Test4 99 110 101 112
+OK
+#Object successfully moved : Test4
+C Test1 1 1 2 
+L Test2 9 8 7 3
+R Test3 12 13 14 15
+PL Test4 99 110 101 112

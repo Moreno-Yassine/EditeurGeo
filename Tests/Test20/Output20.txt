@@ -1,6 +1,6 @@
-
+OK
 #New Object Created : Test3
 OK
 #NO OBJECTS CREATED OR CURRENTLY STORED
 OK
-Test3 12 13 14 15
+R Test3 12 13 14 15

@@ -1,8 +1,12 @@
+OK
 #New Object Created : Test1
+OK
 #New Object Created : Test2
 OK
+OK
 #New Object Created : Test3
+OK
 #New Object Created : Test4
-Test1 1 1 2 
-Test3 12 13 14 15
-Test4 89 90 91 92
+C Test1 1 1 2 
+R Test3 12 13 14 15
+PL Test4 89 90 91 92

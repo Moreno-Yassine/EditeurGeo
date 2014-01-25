@@ -1,5 +1,6 @@
+OK
 #New Object Created : Test1
 OK
 #NO OBJECTS CREATED OR CURRENTLY STORED
 OK
-Test1 1 2 3
+C Test1 1 2 3

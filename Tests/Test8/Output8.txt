@@ -1,10 +1,14 @@
+OK
 #New Object Created : Test1
+OK
 #New Object Created : Test2
+OK
 #New Object Created : Test3
+OK
 #New Object Created : Test4
 ERR
 #NAME ALREADY EXISTS
-Test1 1 1 2 
-Test2 9 8 7 3
-Test3 12 13 14 15
-Test4 89 90 91 92
+C Test1 1 1 2 
+L Test2 9 8 7 3
+R Test3 12 13 14 15
+PL Test4 89 90 91 92
