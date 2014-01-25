@@ -29,7 +29,7 @@ Une fois le logiciel lancé, les commandes suivantes permettent de créer des é
  * `PL NAME X1 Y1 X2 Y2` ...` Xn Yn` pour créer une polyligne
 	-Ici, chaque couple `Xi Yi` sont les coordonnées des points par lesquels passe la polyligne.
 	Notons que l'ordre est ici important.
- * `OA Name-1 Name-2`... `Name-n` pour créer un objet agrégé, ce dernier et une collection qui contient
+ * `OA NAME Name-1 Name-2`... `Name-n` pour créer un objet agrégé, ce dernier et une collection qui contient
  touts les objets nommés dans la ligne de commande.
 
 #Commandes auxiliaires
