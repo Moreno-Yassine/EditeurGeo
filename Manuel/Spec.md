@@ -2,7 +2,7 @@ Editeur Géométrique
 ===================
 
 
-###Specification :
+##Specification :
 
 
 ##Description du programme :
@@ -20,17 +20,15 @@ Notre programme s`appuie sur dix-huit classes différentes.
 Cette classe permet de traiter les lignes de commandes entrées dans la console, ces lignes sont stockées dans un vecteur afin de gérer les sauvegardes que souhaite faire l`utilisateur.
 
 Méthodes publique:
-`vector<string> currentCommandInput`:
-`vector <string> currentCommentStore`:
-`void InputCmd (vector<string> cmd)`:
-`void InputParser (istream &is)`:
+
+`void InputCmd (vector<string> cmd)`: une méthode qui se charge d'identifier la commande entrée.
+`void InputParser (istream &is)`: une méthode de "découpage" qui se charge de récuperer la commande dans le flux d'entrée.
 
 Méthodes privées:
 `bool intchecker(string buff)`:permet de vérifier si la chaîne de caractère passée en paramètre représente bien un nombre( même si elle est de type `String`.
-`bool objchecker (string buff)`:
 
 Attributs :
-
+-`vector<string> currentCommandInput`: un vector stockant la commande à traiter par le parser.
 -`vector<Commande*> executionline`: ici sont stockés les lignes de commande afin de conserver l'historique de celles-ci
 et ainsi de pouvoir effectué des "undo-redo".
 -`vector<Commande*> executionlinesecondary`: ce deuxième vecteur sert à gérer certaines suite de commandes complexes, et est utilisé en parallèle de `executionline`.
@@ -166,7 +164,7 @@ virtual void undo(map<string, ElemtGeo*>*mapInsert):
 
  Ces méthodes, héritée par toutes les classe qui héritent de commande, fournit à ces-dernières la collection sur laquelle elles vont travailler.
 
-Classe CAjouterCercle :
+#Classe CAjouterCercle :
 
 Méthodes :
 
