@@ -29,11 +29,16 @@ Méthodes privées:
 
 Attributs :
 -`vector<string> currentCommandInput`: un vector stockant la commande à traiter par le parser.
+
 -`vector<Commande*> executionline`: ici sont stockés les lignes de commande afin de conserver l'historique de celles-ci
 et ainsi de pouvoir effectué des "undo-redo".
--`vector<Commande*> executionlinesecondary`: ce deuxième vecteur sert à gérer certaines suite de commandes complexes, et est utilisé en parallèle de `executionline`.
+
+-`vector<Commande*> executionlinesecondary`: ce deuxième vecteur sert à gérer certaines suite de commandes complexes, et est utilisé en parallèle de `executionline`, chaque UNDO transfert la commande dans ce vector, le REDO porte sur ce vector.
+
 -`map <string,ElemtGeo*> objectStore`: map qui sert à stocker les éléments géométriques.
+
 -`bool undoMode`: Flag permettant le bon fonctionnement du programme lors d'une commande UNDO.
+
 -`bool loadingMode`:Flag permettant le bon fonctionnement du programme lors d'une commande LOAD.
 
 
