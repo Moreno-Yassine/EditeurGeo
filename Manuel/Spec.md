@@ -20,6 +20,11 @@ Notre programme s`appuie sur sept classes différentes.
 Cette classe permet de traiter les lignes de commandes entrées dans la console, ces lignes sont stockées dans un vecteur afin de gérer les sauvegardes que souhaite faire l`utilisateur.
 
 Méthodes publique:
+`vector<string> currentCommandInput`:
+`vector <string> currentCommentStore`:
+`unsigned int manualCommentCounter`:
+`void InputCmd (vector<string> cmd)`:
+`void InputParser (istream &is)`:
 
 Méthodes privées:
 `bool intchecker(string buff)`:permet de vérifier si la chaîne de caractère passée en paramètre représente bien un nombre( même si elle est de type `String`.
