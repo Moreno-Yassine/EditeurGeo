@@ -9,11 +9,11 @@ Editeur Géométrique
 
 Ce programme a pour but de permettre la création, puis la manipulation de formes géométriques depuis une interface console. Les différents éléments géométriques disponibles sont : Le cercle, Le rectangle, la ligne et la poly-ligne( qui seront plus amplement décrits plus tard).
 
-De plus, il permettra la sauvegarde sous forme de fichier texte de l`intégralité d`une session de travail ainsi que sa restauration.
+De plus, il permettra la sauvegarde sous forme de fichier texte d`une session de travail ainsi que sa restauration.
 
-Description des classes :
+##Description des classes :
 
-Notre programme s`appuie sur sept classes différentes.
+Notre programme s`appuie sur dix-huit classes différentes.
 
 #CliParser :
 
@@ -22,7 +22,6 @@ Cette classe permet de traiter les lignes de commandes entrées dans la console,
 Méthodes publique:
 `vector<string> currentCommandInput`:
 `vector <string> currentCommentStore`:
-`unsigned int manualCommentCounter`:
 `void InputCmd (vector<string> cmd)`:
 `void InputParser (istream &is)`:
 
@@ -41,30 +40,31 @@ et ainsi de pouvoir effectué des "undo-redo".
 
 
 
-#ElementGéo {virtual}:
+#ElemtGeo {virtual}:
 
 Cette classe parente des classes cercle, rectangle et PolyLigne, définit les méthodes principales de chacune des classe qu`elle fait hériter.
 
 Méthodes :
 
-- `void Ajouter()` : permet l`ajout d`un élément.
+- `virtual void Move(long x, long y)` : permet le déplacement d`un élément.
 
-- `void Suppression()` : permet la suppression d`un élément.
+- `virtual void getSaveCommande()` : permet l'obtention de la commande de sauvegarde actuelle d`un élément.
 
-- `void Deplacer()` : permet le déplacement d`un élément.
+- `string getName()` : permet l'obtention du nom de l'objet (caractéristique commune entre tous les objets hérités) .
 
-#Classe Cercle :
+Attributs :
 
-Cette classe permet de créer un cercle définit par son centre et son rayon, ansi que de le manipuler.
+- `string name` : le nom de l'objet.
+
+#Classe FCercle :
+
+Cette classe permet de créer un cercle définit par son centre et son rayon, ainsi que de le manipuler.
 
 Méthodes :
 
-- `void Ajouter( String Name, Point Centre, int Rayon)` : Fait appel au constructeur de la classe Cerlce et créer un cercle de centre p et de rayon Rayon.
+- `void Move(long x, long y)` : permet le déplacement du cercle (en déplaçant son centre).
 
-- `void Supprimer()` : Efface de la mémoire le cercle passé en paramètre.
-
-- `void Deplacer( int dX, int dY)` : Déplace le point p, centre du cercle, d`un vecteur de coordonnées dX/dY .
-
+- `void getSaveCommande()` : permet l'obtention de la commande de sauvegarde actuelle du cercle.
 
 Attributs :
 
@@ -72,20 +72,15 @@ Attributs :
 
 - `int Rayon` : La valeur du rayon du cercle ( qui peut être nul)
 
-- `String name` : contient le nom du cercle.
-
-#Classe Rectangle :
+#Classe FRectangle :
 
 Cette classe permet de créer en mémoire un rectangle définit par les coordonnées de ses deux sommets opposés.
 
 .Méthodes :
 
-- `void Ajouter( String name, Point p1, Point p2)` : Permet la création d`un rectangle ayant pour sommets opposés les deux points passés en paramètre de la fonction.
+- `void Move(long x, long y)` : permet le déplacement du rectangle (en déplaçant ses 2 points attributs).
 
-- `void Supprimer()` : Supprime de la mémoire de rectangle passé en paramètre.
-
-- `void Déplacer( int dX, int dY)` : Déplace l`ensemble des points du rectangle d`un vecteur de coordonnées dX/dY
-
+- `void getSaveCommande()` : permet l'obtention de la commande de sauvegarde actuelle du rectangle.
 
 Attributs :
 
@@ -93,20 +88,15 @@ Attributs :
 
 - `Point CID` : le point définissant le coin inférieur droit du rectangle
 
-- `String Name` : contient le nom du rectangle.
-
-
-#Ligne :
+#Classe FLigne :
 
 Cette classe permet de créer une ligne définie 2 points.
 
 Méthodes :
 
-- `void Ajouter(String name,Point P1, Point P2)` : Ajoute en mémoire une ligne définie par les points P1 et P2.
+- `void Move(long x, long y)` : permet le déplacement de la ligne (en déplaçant ses 2 points attributs).
 
-- `void Supprimer()` : Supprime de la mémoire la ligne passée en paramètre de la fonction.
-
-- `void déplacer(int dX, int dY)` : déplace l`ensemble des points de la ligne d`un vecteur dX/dY .
+- `void getSaveCommande()` : permet l'obtention de la commande de sauvegarde actuelle de la ligne.
 
 Attributs :
 
@@ -114,48 +104,40 @@ Attributs :
 
 - `Point P2` : deuxième point de la ligne.
 
-- `String Name` : nom de l`entité créée.
-
-
-
-
-
-#Polyligne :
+#Classe FPolyligne :
 
 Cette classe permet de créer une polyligne définie par une suite (Un) de points ordonnée, avec n>=1
 
 Méthodes :
 
-- `void Ajouter(String name, vector <Point> Coord)` : Ajoute en mémoire une polyligne définie par les segments existants entre les points successifs de vecteur Coord.
+- `void Move(long x, long y)` : permet le déplacement de la polyligne (en déplaçant ses 2 points attributs).
 
-- `void Supprimer()` : Supprime de la mémoire la polyligne passée en paramètre de la fonction.
-
-- `void déplacer(int dX, int dY)` : déplace l`ensemble des points de la polyligne d`un vecteur dX/dY .
+- `void getSaveCommande()` : permet l'obtention de la commande de sauvegarde actuelle de la polyligne.
 
 Attributs :
 
 - `Vector<point> CoordPL` : conteneur de tous les points de la polyligne.
 
-- `String Name`: nom de l`entité créée.
-
-
-
-#Classe Agrégat :
+#Classe Aggregate :
 
 Cette classe permet de regrouper plusieurs éléments géométriques et de les manipuler conjointement.
 ATTENTION : la suppression d`un agrégat ne permet pas de supprimer les éléments constitutifs.
 
 Methodes :
 
-- `void Creer(Vector<string> Noms)` : on crée un agrégat contenant tous les objets nommés dans le vecteur passé en paramètre.
+- `void Move(long x, long y)` : permet le déplacement de la polyligne (en déplaçant ses 2 points attributs).
 
-- `void Supprimer()` : on supprime l`agrégat crée, ceci n`a aucun impact sur les éléments contenus.
+- `void getSaveCommande()` : permet l'obtention de la commande de sauvegarde actuelle de la polyligne.
 
-- `void Deplacer(int dX,int dY)` : on déplace tous les objets contenus dans l`agrégat A.
+- `void Adder(string name)` : permet l'ajout d'un objet dans un aggregat après le UNDO de sa suppression.
+
+- `void Deleter(string name)` : permet la suppression d'un objet dans un aggregat.
 
 Attributs :
 
 - `Vector<ElementGéo *> ListeElems` : un tableau contenant tous les éléments constituant l`agrégat.
+
+- `Vector<ElementGéo *> deleted` : un tableau contenant tous les éléments supprimés constituant l`agrégat, pour une eventuelle restauration.
 
 #Classe Point :
 
@@ -163,26 +145,15 @@ Cette classe permet la création et la manipulation de points constituant nos é
 
 Méthodes :
 
-- `void Point(int X, int Y) `: le constructeur de la classe point qui permet de créer un point de coordonnées (X,Y).
+- `void Point(long X, long Y) `: le constructeur de la classe point qui permet de créer un point de coordonnées (X,Y).
 
-- `void Déplacer(int dX,int dY`) : déplace le point suivant un vecteur dX/dY.
+- `void Move(long dX,long dY)` : déplace le point suivant un vecteur dX/dY.
 
 Attributs :
 
-- `int X` : Abscisse du point.
+- `long X` : Abscisse du point.
 
-- `int Y` : Ordonnée du point.
-
-
-
-
-
-
-
-
-
-
-
+- `long Y` : Ordonnée du point.
 
 #Classe Commande {Virtual} :
 
@@ -210,9 +181,9 @@ Attributs :
 `String name` : Nom qui sera affecté au cercle créé par la classe.
 `String ligneCommande` : Permet la sauvegarde de la ligne de commande .
 `String commentaireCommande`:
-`int x1`: Coordonné du point du centre du cercle
-`int x2`: Coordonné du point du centre du cercle
-`int r`: Rayon du cercle.
+`long x1`: Coordonné du point du centre du cercle
+`long x2`: Coordonné du point du centre du cercle
+`long r`: Rayon du cercle.
 
 #Classe CAjouterRectangle :
 
@@ -229,12 +200,10 @@ Attributs :
 `String name` : Nom qui sera affecté à l’élément créé par la classe.
 `String ligneCommande` : Permet la sauvegarde de la ligne de commande .
 `String commentaireCommande`:
-`int x1`: Coordonné du point du coin supérieur gauche du rectangle
-`int x2`: Coordonné du point du coin inférieur droit
-`int y1` : Coordonné du point du coin supérieur gauche du rectangle
-`int y2` : Coordonné du point du coin inférieur droit.
-
-
+`long x1`: Coordonné du point du coin supérieur gauche du rectangle
+`long x2`: Coordonné du point du coin inférieur droit
+`long y1` : Coordonné du point du coin supérieur gauche du rectangle
+`long y2` : Coordonné du point du coin inférieur droit.
 
 #Classe CAjouterLigne :
 
@@ -251,10 +220,10 @@ Attributs :
 `String name` : Nom qui sera affecté à l’élément créé par la classe.
 `String ligneCommande` : Permet la sauvegarde de la ligne de commande .
 `String commentaireCommande`:
-`int x1`: Coordonné du premier point de la ligne
-`int x2`: Coordonné du point du deuxième point de la ligne
-`int y1` : Coordonné du premier point de la ligne 
-`int y2` : Coordonné du point du deuxième point de la ligne
+`long x1`: Coordonné du premier point de la ligne
+`long x2`: Coordonné du point du deuxième point de la ligne
+`long y1` : Coordonné du premier point de la ligne 
+`long y2` : Coordonné du point du deuxième point de la ligne
 
 
 #Classe CAjouterPolyLigne :
@@ -272,7 +241,7 @@ Attributs :
 `String name` : Nom qui sera affecté à l’élément créé par la classe.
 `String ligneCommande` : Permet la sauvegarde de la ligne de commande .
 `String commentaireCommande`:
-`Vector <int> coordonnees` : Cette collection d’entier servira à créer tous les points de la polyligne.
+`Vector <long> coordonnees` : Cette collection d’entier servira à créer tous les points de la polyligne.
 
 
 
@@ -288,8 +257,8 @@ Méthodes :
 Ces méthodes permettent d’accéder à la liste des éléments via leur paramètre et de modifier les points des éléments voulus.
 Attributs :
 	
-`Int dx` : déplacement appliqué au attribut en « X » des points des éléments concernés.
-`Int dy` : déplacement appliqué au attribut en « Y» des points des éléments concernés.
+`long dx` : déplacement appliqué au attribut en « X » des points des éléments concernés.
+`long dy` : déplacement appliqué au attribut en « Y» des points des éléments concernés.
 `String object` : stocke les noms des éléments à modifier.
 
 #Classe CDelete:
