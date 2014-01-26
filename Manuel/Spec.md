@@ -19,26 +19,20 @@ Notre programme s`appuie sur sept classes différentes.
 
 Cette classe permet de traiter les lignes de commandes entrées dans la console, ces lignes sont stockées dans un vecteur afin de gérer les sauvegardes que souhaite faire l`utilisateur.
 
-Méthodes:
+Méthodes publique:
 
-- `void Sauvegarder()` : Recopie l`historique des commandes dans un fichier texte.
-
-- `void Charger()` : Récupère un historique à partir d`un fichier texte.
-
-- `void Clear()` : Efface touts les élément géométriques créés au cour de la session sans effacer l`historique des commandes.
-
-- `void Enum()` : Énumère les différents éléments existant lors de l`appel de la méthode.
-
-- `void Exit()` : Ferme la session en cours.
+Méthodes privées:
+`bool intchecker(string buff)`:permet de vérifier si la chaîne de caractère passée en paramètre représente bien un nombre( même si elle est de type `String`.
+`bool objchecker (string buff)`:
 
 Attributs :
 
-- `vector <char **> Commandes` : Ce conteneur de l`ensemble des commandes précédemment exécutées ordonnées chronologiquement.
-
-
-
-
-
+-`vector<Commande*> executionline`: ici sont stockés les lignes de commande afin de conserver l'historique de celles-ci
+et ainsi de pouvoir effectué des "undo-redo".
+-`vector<Commande*> executionlinesecondary`: ce deuxième vecteur sert à gérer certaines suite de commandes complexes, et est utilisé en parallèle de `executionline`.
+-`map <string,ElemtGeo*> objectStore`: map qui sert à stocker les éléments géométriques.
+-`bool undoMode`: Flag permettant le bon fonctionnement du programme lors d'une commande UNDO.
+-`bool loadingMode`:Flag permettant le bon fonctionnement du programme lors d'une commande LOAD.
 
 
 
