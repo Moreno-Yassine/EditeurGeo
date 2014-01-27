@@ -73,7 +73,7 @@ Attributs :
 
 - `point Centre` : un point représentant le centre du cercle
 
-- `int Rayon` : La valeur du rayon du cercle ( qui peut être nul)
+- `long Rayon` : La valeur du rayon du cercle ( qui peut être nul)
 
 #Classe FRectangle :
 
