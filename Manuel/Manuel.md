@@ -57,3 +57,10 @@ de charger en mémoire des fichiers textes.
 * `CLEAR` Efface touts les objets précédemment créés;
 
 * `EXIT` Ferme l'application.
+
+#Structure du fichier `LOAD`
+
+Le fichier sauvegardé lors d'une commande `SAVE` à une structure particulière:
+
+- un premier `#Objet` liste tout les objets créés au moment du `SAVE` dans l'ordre de leur création.
+- un second `#Aggregat` liste les aggrégats créés dans l'ordre chronologique.
