@@ -64,3 +64,4 @@ Le fichier sauvegardé lors d'une commande `SAVE` à une structure particulière
 
 - un premier `#Objet` liste tout les objets créés au moment du `SAVE` dans l'ordre de leur création.
 - un second `#Aggregat` liste les aggrégats créés dans l'ordre chronologique.
+>note: si une erreur intervient lors de l'utilisation d'une commande `LOAD`, cependant, le message se compose de deux parties, la première concernant le format du fichier: malformation, incohérences... et la deuxième conçernant une erruer provenant du `LOAD` lui-même.
